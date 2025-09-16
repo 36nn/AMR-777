@@ -579,9 +579,12 @@ document.getElementById('shop-modal').addEventListener('click', () => {
 });
 
 document.getElementById('chest').addEventListener('click', () => {
-    const lootMessage = generateLoot(chestType);
+    const currentChestType = chestType;
+    const lootMessage = generateLoot(currentChestType);
     chestType = null;
     localStorage.setItem('chestType', '');
     document.getElementById('chest').style.display = 'none';
-    alert(`Вы открыли ${chestType} сундук! Получена награда: ${lootMessage}`);
+    document.getElementById('congrats-text').textContent = `Вы открыли ${currentChestType} сундук! Получена награда: ${lootMessage}`;
+    document.getElementById('congrats-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
 });
