@@ -193,7 +193,7 @@ function renderMidGoals() {
             const currentIndex = allGoals.indexOf(input);
             if (currentIndex !== -1) {
                 midGoals.splice(currentIndex, 1);
-                updateStats('completed', 10);
+                updateStats('completed');
                 // Give legendary chest for completing mid-term goal
                 chestType = 'легендарный';
                 localStorage.setItem('chestType', chestType);
