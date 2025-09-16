@@ -197,6 +197,97 @@ body {
     background: #66bb6a;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    #top-section {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    #character-photo svg {
+        width: 80px;
+        height: 80px;
+    }
+
+    #stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat {
+        margin: 5px 0;
+    }
+
+    .buttons {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    #bottom-section {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .column {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .column h3 {
+        font-size: 16px;
+    }
+
+    .column button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .inventory-grid, .shop-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 5px;
+    }
+
+    .inventory-cell, .shop-item {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    .shop-item {
+        width: 100%;
+        max-width: 120px;
+    }
+
+    .shop-item h4 {
+        font-size: 12px;
+    }
+
+    .shop-item p {
+        font-size: 10px;
+    }
+
+    .shop-item button {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    #inventory-modal, #shop-modal {
+        padding: 10px;
+        max-width: 90vw;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .progress-bar {
+        width: 100px;
+    }
+}
+
 #chest {
     padding: 10px 20px;
     background: linear-gradient(145deg, #d2b48c, #b8860b);
