@@ -39,6 +39,29 @@ function stopDrag() {
 document.addEventListener('mousemove', drag);
 document.addEventListener('mouseup', stopDrag);
 
+// Touch events for mobile
+document.addEventListener('touchstart', touchStart);
+document.addEventListener('touchmove', touchMove);
+document.addEventListener('touchend', touchEnd);
+
+function touchStart(e) {
+    const modal = e.target.closest('#inventory-modal, #shop-modal');
+    if (modal) {
+        startDrag(e.changedTouches[0], modal);
+    }
+}
+
+function touchMove(e) {
+    if (isDragging) {
+        e.preventDefault();
+        drag(e.changedTouches[0]);
+    }
+}
+
+function touchEnd(e) {
+    stopDrag();
+}
+
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 // Ensure old format is converted
 if (notes.length > 0 && typeof notes[0] === 'string') {
