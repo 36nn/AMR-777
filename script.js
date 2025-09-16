@@ -11,6 +11,7 @@ let currentModal = null;
 let wasDragged = false;
 
 function startDrag(e, modal) {
+    e.preventDefault();
     isDragging = true;
     currentModal = modal;
     wasDragged = false;
@@ -606,32 +607,6 @@ document.getElementById('shop-btn').addEventListener('click', () => {
     if (!isVisible) createShopGrid();
 });
 
-document.getElementById('inventory-modal').addEventListener('click', function(e) {
-    if (wasDragged) {
-        wasDragged = false;
-        return;
-    }
-    this.style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
-
-document.getElementById('shop-modal').addEventListener('click', function(e) {
-    if (wasDragged) {
-        wasDragged = false;
-        return;
-    }
-    this.style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
-
-document.getElementById('congrats-modal').addEventListener('click', function(e) {
-    if (wasDragged) {
-        wasDragged = false;
-        return;
-    }
-    this.style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
 
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
