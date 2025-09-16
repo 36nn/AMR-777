@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadData();
+    initTheme();
 });
 
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -383,6 +384,23 @@ function closeModal(modalType) {
     document.body.style.overflow = 'auto';
 }
 
+function initTheme() {
+    const theme = localStorage.getItem('theme') || 'light';
+    if (theme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('theme-toggle').textContent = '☀️';
+    } else {
+        document.getElementById('theme-toggle').textContent = '🌙';
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark');
+    const isDark = document.body.classList.contains('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.getElementById('theme-toggle').textContent = isDark ? '☀️' : '🌙';
+}
+
 
 function updateStats(action, extraLevels = 0) {
     let exp = Math.floor(parseInt(localStorage.getItem('exp')) || 0);
@@ -547,6 +565,8 @@ document.getElementById('shop-btn').addEventListener('click', () => {
     document.body.style.overflow = isVisible ? 'auto' : 'hidden';
     if (!isVisible) createShopGrid();
 });
+
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 document.getElementById('inventory-modal').addEventListener('click', () => {
     document.getElementById('inventory-modal').style.display = 'none';
