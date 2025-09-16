@@ -59,12 +59,12 @@
             <ul id="global-goals-list"></ul>
         </div>
     </main>
-    <div id="inventory-modal" style="display: none;">
+    <div id="inventory-modal" style="display: none;" onmousedown="startDrag(event, this)">
         <button class="close-btn" onclick="event.stopPropagation(); closeModal('inventory')">×</button>
         <div class="inventory-grid"></div>
         <div id="balance">Баланс: 0</div>
     </div>
-    <div id="shop-modal" style="display: none;">
+    <div id="shop-modal" style="display: none;" onmousedown="startDrag(event, this)">
         <button class="close-btn" onclick="event.stopPropagation(); closeModal('shop')">×</button>
         <div class="shop-grid"></div>
         <div id="shop-balance">Баланс: 0</div>

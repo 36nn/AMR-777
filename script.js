@@ -3,6 +3,37 @@ document.addEventListener('DOMContentLoaded', function() {
     initTheme();
 });
 
+// Drag functionality
+let isDragging = false;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+let currentModal = null;
+
+function startDrag(e, modal) {
+    isDragging = true;
+    currentModal = modal;
+    dragOffsetX = e.clientX - modal.offsetLeft;
+    dragOffsetY = e.clientY - modal.offsetTop;
+    modal.style.transform = 'none';
+    modal.style.left = modal.offsetLeft + 'px';
+    modal.style.top = modal.offsetTop + 'px';
+}
+
+function drag(e) {
+    if (isDragging && currentModal) {
+        currentModal.style.left = (e.clientX - dragOffsetX) + 'px';
+        currentModal.style.top = (e.clientY - dragOffsetY) + 'px';
+    }
+}
+
+function stopDrag() {
+    isDragging = false;
+    currentModal = null;
+}
+
+document.addEventListener('mousemove', drag);
+document.addEventListener('mouseup', stopDrag);
+
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 // Ensure old format is converted
 if (notes.length > 0 && typeof notes[0] === 'string') {
