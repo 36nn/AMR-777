@@ -23,6 +23,12 @@ body {
     z-index: 1;
 }
 
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #inventory-btn {
     padding: 10px 20px;
     background: rgba(255, 250, 250, 0.9);
@@ -90,7 +96,7 @@ body {
 }
 
 
-#inventory-modal {
+#inventory-modal, #shop-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -133,11 +139,77 @@ body {
     background: #a08060;
 }
 
+#balance, #shop-balance {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.shop-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 600px;
+    justify-content: center;
+}
+
+.shop-item {
+    background: #8b7355;
+    border: 2px solid #654321;
+    border-radius: 8px;
+    padding: 10px;
+    width: 120px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.shop-item:hover {
+    transform: scale(1.05);
+}
+
+.shop-item h4 {
+    margin: 0 0 5px 0;
+    color: white;
+    font-size: 14px;
+}
+
+.shop-item p {
+    margin: 5px 0;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.shop-item button {
+    padding: 5px 10px;
+    background: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.shop-item button:hover {
+    background: #66bb6a;
+}
+
 #chest {
-    width: 270px;
-    height: 180px;
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #d2b48c, #b8860b);
+    border-radius: 10px;
     cursor: pointer;
     margin: 0 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #bottom-section {

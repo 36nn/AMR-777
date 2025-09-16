@@ -15,7 +15,7 @@
                 <ellipse cx="50" cy="75" rx="20" ry="15" fill="#aaa"/>
             </svg>
         </div>
-        <img id="chest" src="d218ed6f8232162189cdbce53fe46cc8-no-bg-preview (carve.photos).png" style="display: none;" alt="Сундук">
+        <div id="chest" style="display: none;"></div>
         <div id="stats">
             <div class="stat">
                 <label>Уровень:</label>
@@ -36,7 +36,10 @@
                 <button id="reset-stats">Сбросить статы</button>
             </div>
         </div>
-        <button id="inventory-btn">Инвентарь</button>
+        <div class="buttons">
+            <button id="inventory-btn">Инвентарь</button>
+            <button id="shop-btn">Магазин</button>
+        </div>
     </header>
     <main id="bottom-section">
         <div class="column">
@@ -57,6 +60,11 @@
     </main>
     <div id="inventory-modal" style="display: none;">
         <div class="inventory-grid"></div>
+        <div id="balance">Баланс: 0</div>
+    </div>
+    <div id="shop-modal" style="display: none;">
+        <div class="shop-grid"></div>
+        <div id="shop-balance">Баланс: 0</div>
     </div>
     <script src="script.js"></script>
 </body>
