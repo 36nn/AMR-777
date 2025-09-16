@@ -8,11 +8,12 @@ let isDragging = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 let currentModal = null;
+let wasDragged = false;
 
 function startDrag(e, modal) {
     isDragging = true;
     currentModal = modal;
-    modal.dataset.dragging = 'true';
+    wasDragged = false;
     let rect = modal.getBoundingClientRect();
     modal.style.transform = 'none';
     modal.style.left = rect.left + 'px';
@@ -23,6 +24,7 @@ function startDrag(e, modal) {
 
 function drag(e) {
     if (isDragging && currentModal) {
+        wasDragged = true;
         currentModal.style.left = (e.clientX - dragOffsetX) + 'px';
         currentModal.style.top = (e.clientY - dragOffsetY) + 'px';
     }
@@ -30,11 +32,6 @@ function drag(e) {
 
 function stopDrag() {
     isDragging = false;
-    if (currentModal) {
-        setTimeout(() => {
-            delete currentModal.dataset.dragging;
-        }, 100);
-    }
     currentModal = null;
 }
 
@@ -610,19 +607,28 @@ document.getElementById('shop-btn').addEventListener('click', () => {
 });
 
 document.getElementById('inventory-modal').addEventListener('click', function(e) {
-    if (this.dataset.dragging) return;
+    if (wasDragged) {
+        wasDragged = false;
+        return;
+    }
     this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
 
 document.getElementById('shop-modal').addEventListener('click', function(e) {
-    if (this.dataset.dragging) return;
+    if (wasDragged) {
+        wasDragged = false;
+        return;
+    }
     this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
 
 document.getElementById('congrats-modal').addEventListener('click', function(e) {
-    if (this.dataset.dragging) return;
+    if (wasDragged) {
+        wasDragged = false;
+        return;
+    }
     this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
