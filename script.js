@@ -606,21 +606,21 @@ document.getElementById('shop-btn').addEventListener('click', () => {
     if (!isVisible) createShopGrid();
 });
 
-document.getElementById('inventory-modal').addEventListener('click', (e) => {
-    if (e.target.dataset.dragging) return;
-    document.getElementById('inventory-modal').style.display = 'none';
+document.getElementById('inventory-modal').addEventListener('click', function(e) {
+    if (this.dataset.dragging) return;
+    this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
 
-document.getElementById('shop-modal').addEventListener('click', (e) => {
-    if (e.target.dataset.dragging) return;
-    document.getElementById('shop-modal').style.display = 'none';
+document.getElementById('shop-modal').addEventListener('click', function(e) {
+    if (this.dataset.dragging) return;
+    this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
 
-document.getElementById('congrats-modal').addEventListener('click', (e) => {
-    if (e.target.dataset.dragging) return;
-    document.getElementById('congrats-modal').style.display = 'none';
+document.getElementById('congrats-modal').addEventListener('click', function(e) {
+    if (this.dataset.dragging) return;
+    this.style.display = 'none';
     document.body.style.overflow = 'auto';
 });
 
