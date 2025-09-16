@@ -602,6 +602,17 @@ document.getElementById('shop-btn').addEventListener('click', () => {
     if (!isVisible) createShopGrid();
 });
 
+// Remove click-to-close for draggable modals, only close button works
+// document.getElementById('inventory-modal').addEventListener('click', () => {
+//     document.getElementById('inventory-modal').style.display = 'none';
+//     document.body.style.overflow = 'auto';
+// });
+
+// document.getElementById('shop-modal').addEventListener('click', () => {
+//     document.getElementById('shop-modal').style.display = 'none';
+//     document.body.style.overflow = 'auto';
+// });
+
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 document.getElementById('inventory-modal').addEventListener('click', () => {
