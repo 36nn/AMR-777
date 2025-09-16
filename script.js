@@ -12,6 +12,7 @@ let currentModal = null;
 function startDrag(e, modal) {
     isDragging = true;
     currentModal = modal;
+    modal.dataset.dragging = 'true';
     dragOffsetX = e.clientX - modal.offsetLeft;
     dragOffsetY = e.clientY - modal.offsetTop;
     modal.style.transform = 'none';
@@ -27,6 +28,9 @@ function drag(e) {
 }
 
 function stopDrag() {
+    if (currentModal) {
+        delete currentModal.dataset.dragging;
+    }
     isDragging = false;
     currentModal = null;
 }
@@ -602,16 +606,23 @@ document.getElementById('shop-btn').addEventListener('click', () => {
     if (!isVisible) createShopGrid();
 });
 
-// Remove click-to-close for draggable modals, only close button works
-// document.getElementById('inventory-modal').addEventListener('click', () => {
-//     document.getElementById('inventory-modal').style.display = 'none';
-//     document.body.style.overflow = 'auto';
-// });
+document.getElementById('inventory-modal').addEventListener('click', (e) => {
+    if (e.target.dataset.dragging) return;
+    document.getElementById('inventory-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
 
-// document.getElementById('shop-modal').addEventListener('click', () => {
-//     document.getElementById('shop-modal').style.display = 'none';
-//     document.body.style.overflow = 'auto';
-// });
+document.getElementById('shop-modal').addEventListener('click', (e) => {
+    if (e.target.dataset.dragging) return;
+    document.getElementById('shop-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
+
+document.getElementById('congrats-modal').addEventListener('click', (e) => {
+    if (e.target.dataset.dragging) return;
+    document.getElementById('congrats-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
 
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
