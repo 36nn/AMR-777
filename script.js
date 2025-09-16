@@ -378,6 +378,11 @@ function updateShopBalance() {
     document.getElementById('shop-balance').textContent = `Баланс: ${coins}`;
 }
 
+function closeModal(modalType) {
+    document.getElementById(modalType + '-modal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
 
 function updateStats(action, extraLevels = 0) {
     let exp = Math.floor(parseInt(localStorage.getItem('exp')) || 0);
