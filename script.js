@@ -8,13 +8,10 @@ let isDragging = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
 let currentModal = null;
-let wasDragged = false;
 
 function startDrag(e, modal) {
-    e.preventDefault();
     isDragging = true;
     currentModal = modal;
-    wasDragged = false;
     let rect = modal.getBoundingClientRect();
     modal.style.transform = 'none';
     modal.style.left = rect.left + 'px';
@@ -25,7 +22,6 @@ function startDrag(e, modal) {
 
 function drag(e) {
     if (isDragging && currentModal) {
-        wasDragged = true;
         currentModal.style.left = (e.clientX - dragOffsetX) + 'px';
         currentModal.style.top = (e.clientY - dragOffsetY) + 'px';
     }
@@ -39,28 +35,6 @@ function stopDrag() {
 document.addEventListener('mousemove', drag);
 document.addEventListener('mouseup', stopDrag);
 
-// Touch events for mobile
-document.addEventListener('touchstart', touchStart);
-document.addEventListener('touchmove', touchMove);
-document.addEventListener('touchend', touchEnd);
-
-function touchStart(e) {
-    const modal = e.target.closest('#inventory-modal, #shop-modal');
-    if (modal) {
-        startDrag(e.changedTouches[0], modal);
-    }
-}
-
-function touchMove(e) {
-    if (isDragging) {
-        e.preventDefault();
-        drag(e.changedTouches[0]);
-    }
-}
-
-function touchEnd(e) {
-    stopDrag();
-}
 
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 // Ensure old format is converted
@@ -633,15 +607,7 @@ document.getElementById('shop-btn').addEventListener('click', () => {
 
 document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
-document.getElementById('inventory-modal').addEventListener('click', () => {
-    document.getElementById('inventory-modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
 
-document.getElementById('shop-modal').addEventListener('click', () => {
-    document.getElementById('shop-modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-});
 
 document.getElementById('chest').addEventListener('click', () => {
     const currentChestType = chestType;
