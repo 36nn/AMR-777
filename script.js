@@ -13,11 +13,12 @@ function startDrag(e, modal) {
     isDragging = true;
     currentModal = modal;
     modal.dataset.dragging = 'true';
-    dragOffsetX = e.clientX - modal.offsetLeft;
-    dragOffsetY = e.clientY - modal.offsetTop;
+    let rect = modal.getBoundingClientRect();
     modal.style.transform = 'none';
-    modal.style.left = modal.offsetLeft + 'px';
-    modal.style.top = modal.offsetTop + 'px';
+    modal.style.left = rect.left + 'px';
+    modal.style.top = rect.top + 'px';
+    dragOffsetX = e.clientX - rect.left;
+    dragOffsetY = e.clientY - rect.top;
 }
 
 function drag(e) {
@@ -28,10 +29,12 @@ function drag(e) {
 }
 
 function stopDrag() {
-    if (currentModal) {
-        delete currentModal.dataset.dragging;
-    }
     isDragging = false;
+    if (currentModal) {
+        setTimeout(() => {
+            delete currentModal.dataset.dragging;
+        }, 100);
+    }
     currentModal = null;
 }
 
