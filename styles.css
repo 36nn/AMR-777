@@ -399,6 +399,11 @@ body.dark .shop-item {
     backdrop-filter: blur(10px);
     position: relative;
     z-index: 1;
+    transition: background 0.3s;
+}
+
+body.dark #bottom-section {
+    background: rgba(51, 51, 51, 0.95);
 }
 
 .column {
@@ -410,6 +415,11 @@ body.dark .shop-item {
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+}
+
+body.dark .column {
+    background: rgba(77, 77, 77, 0.8);
 }
 
 .column h3 {
@@ -418,6 +428,11 @@ body.dark .shop-item {
     color: #333;
     font-size: 18px;
     font-weight: bold;
+    transition: color 0.3s;
+}
+
+body.dark .column h3 {
+    color: #fff;
 }
 
 .column textarea {
@@ -454,7 +469,13 @@ body.dark .shop-item {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s;
+}
+
+body.dark .goal {
+    background: rgba(77, 77, 77, 0.9);
+    border-color: #666;
+    color: #fff;
 }
 
 .goal:hover {
@@ -503,7 +524,13 @@ body.dark .shop-item {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s;
+}
+
+body.dark .note {
+    background: rgba(77, 77, 77, 0.9);
+    border-color: #666;
+    color: #fff;
 }
 
 .note:hover {
