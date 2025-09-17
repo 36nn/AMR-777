@@ -218,6 +218,19 @@ body.dark .inventory-cell {
     cursor: pointer;
 }
 
+#companion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+#companion img {
+    width: 120px;
+    height: 250px;
+    object-fit: cover;
+}
+
 .tooltip {
     position: absolute;
     bottom: 100%;
