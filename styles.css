@@ -369,6 +369,46 @@ body.dark .shop-item {
     font-size: 24px;
 }
 
+#use-item-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    color: white;
+}
+
+#use-item-modal h2 {
+    margin-bottom: 15px;
+}
+
+#use-item-modal p {
+    margin-bottom: 20px;
+}
+
+#use-item-modal button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#use-yes {
+    background: green;
+    color: white;
+}
+
+#use-no {
+    background: red;
+    color: white;
+}
+
 #congrats-modal p {
     color: white;
     font-size: 16px;

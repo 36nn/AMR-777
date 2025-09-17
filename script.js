@@ -384,6 +384,7 @@ function createInventoryGrid() {
             itemDiv.addEventListener('mouseout', () => {
                 tooltip.classList.remove('show');
             });
+            itemDiv.addEventListener('click', () => openUseModal(item.type));
             cell.appendChild(itemDiv);
         }
         grid.appendChild(cell);
@@ -445,6 +446,52 @@ function updateShopBalance() {
 function closeModal(modalType) {
     document.getElementById(modalType + '-modal').style.display = 'none';
     document.body.style.overflow = 'auto';
+}
+
+function openUseModal(type) {
+    const itemNames = {
+        antidebuff: 'Зелье антидебафа',
+        speed: 'Зелье ускорения',
+        gold: 'Зелье золота',
+        fragment: 'Фрагмент артефакта',
+        amulet: 'Амулет',
+        scroll: 'Защитный свиток'
+    };
+    document.getElementById('use-item-text').textContent = `Хотите использовать ${itemNames[type]}?`;
+    document.getElementById('use-item-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    document.getElementById('use-yes').onclick = () => {
+        useItem(type);
+        closeModal('use-item');
+    };
+    document.getElementById('use-no').onclick = () => closeModal('use-item');
+}
+
+function useItem(type) {
+    if (type === 'antidebuff') {
+        potions.antidebuff--;
+        let hp = parseInt(localStorage.getItem('hp')) || 100;
+        hp = Math.min(100, hp + 20);
+        localStorage.setItem('hp', hp);
+        updateDisplay(0, 0, hp);
+    } else if (type === 'speed') {
+        potions.speed--;
+        alert('Зелье ускорения активировано!');
+    } else if (type === 'gold') {
+        potions.gold--;
+        alert('Зелье золота активировано!');
+    } else if (type === 'amulet') {
+        amulets--;
+        alert('Амулет активирован!');
+    } else if (type === 'scroll') {
+        scrolls--;
+        alert('Защитный свиток активирован!');
+    } else if (type === 'fragment') {
+        artifactFragments--;
+        alert('Фрагмент использован!');
+    }
+    saveLoot();
+    createInventoryGrid();
 }
 
 function initTheme() {
