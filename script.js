@@ -356,11 +356,11 @@ function createInventoryGrid() {
     };
     const items = [
         {type: 'antidebuff', count: potions.antidebuff, image: 'apps_29805_14478994967251976_1fe20a17-044a-4c1d-b5-no-bg-preview (carve.photos).png'},
-        {type: 'speed', count: potions.speed, image: 'https://example.com/speed.png'},
+        {type: 'speed', count: potions.speed, image: 'i-no-bg-preview (carve.photos).png'},
         {type: 'gold', count: potions.gold, image: 'apps_62003_13960015020777823_cee4347e-2b33-4142-83-no-bg-preview (carve.photos).png'},
         {type: 'fragment', count: artifactFragments, image: 'https://example.com/fragment.png'},
         {type: 'amulet', count: amulets, image: 'https://example.com/amulet.png'},
-        {type: 'scroll', count: scrolls, image: 'https://example.com/scroll.png'}
+        {type: 'scroll', count: scrolls, image: '9eb4d11a1e7373524852c6aa01b4058b-no-bg-preview (carve.photos).png'}
     ];
     items.forEach(item => {
         const cell = document.createElement('div');
@@ -371,8 +371,8 @@ function createInventoryGrid() {
             const img = document.createElement('img');
             img.src = item.image;
             img.alt = item.type;
-            img.style.width = '48px';
-            img.style.height = '48px';
+            img.style.width = '82px';
+            img.style.height = '82px';
             itemDiv.appendChild(img);
             const tooltip = document.createElement('div');
             tooltip.className = 'tooltip';
