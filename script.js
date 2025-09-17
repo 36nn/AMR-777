@@ -346,6 +346,14 @@ function addGlobalGoal() {
 function createInventoryGrid() {
     const grid = document.querySelector('.inventory-grid');
     grid.innerHTML = '';
+    const itemDescriptions = {
+        antidebuff: 'Зелье антидебафа: Восстанавливает 20 HP и снимает негативные эффекты.',
+        speed: 'Зелье ускорения: Увеличивает скорость выполнения задач на 50% на 1 час.',
+        gold: 'Зелье золота: Увеличивает доход от лута на 100% на следующий сундук.',
+        fragment: 'Фрагмент артефакта: Соберите 3, чтобы получить амулет.',
+        amulet: 'Амулет: Повышает максимальный HP на 10.',
+        scroll: 'Защитный свиток: Блокирует следующий провал задачи.'
+    };
     const items = [
         {type: 'antidebuff', count: potions.antidebuff, emoji: '🛡️'}, // щит
         {type: 'speed', count: potions.speed, emoji: '⚡'}, // молния
@@ -361,6 +369,16 @@ function createInventoryGrid() {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'inventory-item';
             itemDiv.textContent = item.emoji;
+            const tooltip = document.createElement('div');
+            tooltip.className = 'tooltip';
+            tooltip.textContent = itemDescriptions[item.type];
+            itemDiv.appendChild(tooltip);
+            itemDiv.addEventListener('mouseover', () => {
+                tooltip.classList.add('show');
+            });
+            itemDiv.addEventListener('mouseout', () => {
+                tooltip.classList.remove('show');
+            });
             cell.appendChild(itemDiv);
         }
         grid.appendChild(cell);

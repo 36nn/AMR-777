@@ -210,34 +210,35 @@ body.dark .inventory-cell {
 }
 
 .inventory-item {
-    font-size: 24px;
+    font-size: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    cursor: pointer;
 }
 
-.inventory-item[data-tooltip]:hover::after {
-    content: attr(data-tooltip);
+.tooltip {
     position: absolute;
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     color: #fff;
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 12px;
     white-space: nowrap;
-    z-index: 1000;
+    z-index: 1001;
     pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.2s;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    visibility: hidden;
 }
 
-.inventory-item[data-tooltip]:not(:hover)::after {
-    opacity: 0;
-    transition: opacity 0.2s;
+.tooltip.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 .inventory-count {
