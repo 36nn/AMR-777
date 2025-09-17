@@ -355,12 +355,12 @@ function createInventoryGrid() {
         scroll: 'Защитный свиток: Блокирует следующий провал задачи.'
     };
     const items = [
-        {type: 'antidebuff', count: potions.antidebuff, emoji: '🛡️'}, // щит
-        {type: 'speed', count: potions.speed, emoji: '⚡'}, // молния
-        {type: 'gold', count: potions.gold, emoji: '💰'}, // мешок золота
-        {type: 'fragment', count: artifactFragments, emoji: '🔮'}, // кристалл
-        {type: 'amulet', count: amulets, emoji: '📿'}, // четки
-        {type: 'scroll', count: scrolls, emoji: '📜'} // свиток
+        {type: 'antidebuff', count: potions.antidebuff, image: 'apps_29805_14478994967251976_1fe20a17-044a-4c1d-b5-no-bg-preview (carve.photos).png'},
+        {type: 'speed', count: potions.speed, image: 'https://example.com/speed.png'},
+        {type: 'gold', count: potions.gold, image: 'apps_62003_13960015020777823_cee4347e-2b33-4142-83-no-bg-preview (carve.photos).png'},
+        {type: 'fragment', count: artifactFragments, image: 'https://example.com/fragment.png'},
+        {type: 'amulet', count: amulets, image: 'https://example.com/amulet.png'},
+        {type: 'scroll', count: scrolls, image: 'https://example.com/scroll.png'}
     ];
     items.forEach(item => {
         const cell = document.createElement('div');
@@ -368,7 +368,12 @@ function createInventoryGrid() {
         if (item.count > 0) {
             const itemDiv = document.createElement('div');
             itemDiv.className = 'inventory-item';
-            itemDiv.textContent = item.emoji;
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.alt = item.type;
+            img.style.width = '48px';
+            img.style.height = '48px';
+            itemDiv.appendChild(img);
             const tooltip = document.createElement('div');
             tooltip.className = 'tooltip';
             tooltip.textContent = itemDescriptions[item.type];
