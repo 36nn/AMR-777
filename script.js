@@ -53,7 +53,7 @@ let completedTasks = parseInt(localStorage.getItem('completedTasks')) || 0;
 let chestType = localStorage.getItem('chestType') || null;
 
 let coins = parseInt(localStorage.getItem('coins')) || 0;
-let potions = JSON.parse(localStorage.getItem('potions')) || {protection: 0, energy: 0, healing: 0, power: 0};
+let potions = JSON.parse(localStorage.getItem('potions')) || {antidebuff: 0, speed: 0, gold: 0};
 let artifactFragments = parseInt(localStorage.getItem('artifactFragments')) || 0;
 let amulets = parseInt(localStorage.getItem('amulets')) || 0;
 let scrolls = parseInt(localStorage.getItem('scrolls')) || 0;
@@ -68,7 +68,7 @@ function loadData() {
 
     // Загрузка лута
     coins = parseInt(localStorage.getItem('coins')) || 0;
-    potions = JSON.parse(localStorage.getItem('potions')) || {protection: 0, energy: 0, healing: 0, power: 0};
+    potions = JSON.parse(localStorage.getItem('potions')) || {antidebuff: 0, speed: 0, gold: 0};
     artifactFragments = parseInt(localStorage.getItem('artifactFragments')) || 0;
     amulets = parseInt(localStorage.getItem('amulets')) || 0;
     scrolls = parseInt(localStorage.getItem('scrolls')) || 0;
@@ -347,18 +347,22 @@ function createInventoryGrid() {
     const grid = document.querySelector('.inventory-grid');
     grid.innerHTML = '';
     const items = [
-        {name: 'Зелье защиты', count: potions.protection},
-        {name: 'Зелье энергии', count: potions.energy},
-        {name: 'Зелье лечения', count: potions.healing},
-        {name: 'Зелье силы', count: potions.power},
-        {name: 'Фрагмент артефакта', count: artifactFragments},
-        {name: 'Амулет', count: amulets},
-        {name: 'Защитный свиток', count: scrolls}
+        {type: 'antidebuff', count: potions.antidebuff, emoji: '🛡️'}, // щит
+        {type: 'speed', count: potions.speed, emoji: '⚡'}, // молния
+        {type: 'gold', count: potions.gold, emoji: '💰'}, // мешок золота
+        {type: 'fragment', count: artifactFragments, emoji: '🔮'}, // кристалл
+        {type: 'amulet', count: amulets, emoji: '📿'}, // четки
+        {type: 'scroll', count: scrolls, emoji: '📜'} // свиток
     ];
     items.forEach(item => {
         const cell = document.createElement('div');
         cell.className = 'inventory-cell';
-        cell.textContent = `${item.name}: ${item.count}`;
+        if (item.count > 0) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'inventory-item';
+            itemDiv.textContent = item.emoji;
+            cell.appendChild(itemDiv);
+        }
         grid.appendChild(cell);
     });
     // Заполнить пустыми ячейками до 20
@@ -373,10 +377,9 @@ function createShopGrid() {
     const grid = document.querySelector('.shop-grid');
     grid.innerHTML = '';
     const items = [
-        {name: 'Зелье защиты', price: 10, type: 'protection'},
-        {name: 'Зелье энергии', price: 15, type: 'energy'},
-        {name: 'Зелье лечения', price: 20, type: 'healing'},
-        {name: 'Зелье силы', price: 25, type: 'power'},
+        {name: 'Зелье антидебафа', price: 10, type: 'antidebuff'},
+        {name: 'Зелье ускорения', price: 15, type: 'speed'},
+        {name: 'Зелье золота', price: 20, type: 'gold'},
         {name: 'Амулет', price: 50, type: 'amulet'},
         {name: 'Защитный свиток', price: 30, type: 'scroll'},
         {name: 'Фрагмент артефакта', price: 5, type: 'fragment'}
@@ -397,10 +400,9 @@ function createShopGrid() {
 function buyItem(type, price) {
     if (coins >= price) {
         coins -= price;
-        if (type === 'protection') potions.protection++;
-        else if (type === 'energy') potions.energy++;
-        else if (type === 'healing') potions.healing++;
-        else if (type === 'power') potions.power++;
+        if (type === 'antidebuff') potions.antidebuff++;
+        else if (type === 'speed') potions.speed++;
+        else if (type === 'gold') potions.gold++;
         else if (type === 'amulet') amulets++;
         else if (type === 'scroll') scrolls++;
         else if (type === 'fragment') artifactFragments++;
@@ -521,9 +523,9 @@ function generateLoot(chestType) {
         let xpGain = Math.floor(Math.random() * 5) + 1;
         addXP(xpGain);
         lootMessage += `, XP: +${xpGain}`;
-        if (Math.random() < 0.2) {
-            potions.protection += 1;
-            lootMessage += `, Зелье защиты: +1`;
+        if (Math.random() < 0.3) {
+            potions.antidebuff += 1;
+            lootMessage += `, Зелье антидебафа: +1`;
         }
     } else if (chestType === 'редкий') {
         let coinGain = Math.floor(Math.random() * 11) + 5;
@@ -532,9 +534,9 @@ function generateLoot(chestType) {
         let xpGain = Math.floor(Math.random() * 11) + 5;
         addXP(xpGain);
         lootMessage += `, XP: +${xpGain}`;
-        if (Math.random() < 0.5) {
-            potions.energy += 1;
-            lootMessage += `, Зелье энергии: +1`;
+        if (Math.random() < 0.4) {
+            potions.speed += 1;
+            lootMessage += `, Зелье ускорения: +1`;
         }
         if (Math.random() < 0.3) {
             artifactFragments += 1;
@@ -552,11 +554,15 @@ function generateLoot(chestType) {
         let xpGain = Math.floor(Math.random() * 16) + 15;
         addXP(xpGain);
         lootMessage += `, XP: +${xpGain}`;
-        if (Math.random() < 0.6) {
+        if (Math.random() < 0.5) {
+            potions.gold += 1;
+            lootMessage += `, Зелье золота: +1`;
+        }
+        if (Math.random() < 0.4) {
             amulets += 1;
             lootMessage += `, Амулет: +1`;
         }
-        if (Math.random() < 0.4) {
+        if (Math.random() < 0.3) {
             scrolls += 1;
             lootMessage += `, Защитный свиток: +1`;
         }
@@ -567,7 +573,10 @@ function generateLoot(chestType) {
         let xpGain = Math.floor(Math.random() * 21) + 30;
         addXP(xpGain);
         lootMessage += `, XP: +${xpGain}`;
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.3) {
+            potions.gold += 2;
+            lootMessage += `, Зелье золота: +2`;
+        } else if (Math.random() < 0.6) {
             amulets += 2;
             lootMessage += `, Амулет: +2`;
         } else {

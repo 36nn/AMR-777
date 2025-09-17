@@ -203,6 +203,31 @@ body.dark .inventory-cell {
     color: #fff;
 }
 
+.inventory-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-item {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inventory-count {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+
 .inventory-cell:hover {
     background: #a08060;
 }
