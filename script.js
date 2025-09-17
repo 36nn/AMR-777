@@ -358,7 +358,7 @@ function createInventoryGrid() {
         {type: 'antidebuff', count: potions.antidebuff, image: 'apps_29805_14478994967251976_1fe20a17-044a-4c1d-b5-no-bg-preview (carve.photos).png'},
         {type: 'speed', count: potions.speed, image: 'i-no-bg-preview (carve.photos).png'},
         {type: 'gold', count: potions.gold, image: 'apps_62003_13960015020777823_cee4347e-2b33-4142-83-no-bg-preview (carve.photos).png'},
-        {type: 'fragment', count: artifactFragments, image: 'https://example.com/fragment.png'},
+        {type: 'fragment', count: artifactFragments, image: '1323c4b7812112a2c274c72f2ccddbb5-no-bg-preview (carve.photos).png'},
         {type: 'amulet', count: amulets, image: 'cb1723a57a4d27dc89a69e2f38205f9c-no-bg-preview (carve.photos).png'},
         {type: 'scroll', count: scrolls, image: '9eb4d11a1e7373524852c6aa01b4058b-no-bg-preview (carve.photos).png'}
     ];
@@ -446,52 +446,6 @@ function updateShopBalance() {
 function closeModal(modalType) {
     document.getElementById(modalType + '-modal').style.display = 'none';
     document.body.style.overflow = 'auto';
-}
-
-function openUseModal(type) {
-    const itemNames = {
-        antidebuff: 'Зелье антидебафа',
-        speed: 'Зелье ускорения',
-        gold: 'Зелье золота',
-        fragment: 'Фрагмент артефакта',
-        amulet: 'Амулет',
-        scroll: 'Защитный свиток'
-    };
-    document.getElementById('use-item-text').textContent = `Хотите использовать ${itemNames[type]}?`;
-    document.getElementById('use-item-modal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    document.getElementById('use-yes').onclick = () => {
-        useItem(type);
-        closeModal('use-item');
-    };
-    document.getElementById('use-no').onclick = () => closeModal('use-item');
-}
-
-function useItem(type) {
-    if (type === 'antidebuff') {
-        potions.antidebuff--;
-        let hp = parseInt(localStorage.getItem('hp')) || 100;
-        hp = Math.min(100, hp + 20);
-        localStorage.setItem('hp', hp);
-        updateDisplay(0, 0, hp);
-    } else if (type === 'speed') {
-        potions.speed--;
-        alert('Зелье ускорения активировано!');
-    } else if (type === 'gold') {
-        potions.gold--;
-        alert('Зелье золота активировано!');
-    } else if (type === 'amulet') {
-        amulets--;
-        alert('Амулет активирован!');
-    } else if (type === 'scroll') {
-        scrolls--;
-        alert('Защитный свиток активирован!');
-    } else if (type === 'fragment') {
-        artifactFragments--;
-        alert('Фрагмент использован!');
-    }
-    saveLoot();
-    createInventoryGrid();
 }
 
 function initTheme() {
@@ -698,3 +652,41 @@ document.getElementById('chest').addEventListener('click', () => {
     document.getElementById('congrats-modal').style.display = 'block';
     document.body.style.overflow = 'hidden';
 });
+
+function openUseModal(type) {
+    document.getElementById('use-item-text').textContent = `Хотите использовать ${type}?`;
+    document.getElementById('use-item-modal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    window.currentItemType = type;
+}
+
+function useItem() {
+    const type = window.currentItemType;
+    if (type === 'antidebuff') {
+        potions.antidebuff--;
+        // Восстановить HP
+        let hp = parseInt(localStorage.getItem('hp')) || 100;
+        hp = Math.min(100, hp + 20);
+        updateDisplay(0, parseInt(localStorage.getItem('level')) || 1, hp);
+        saveStats(0, parseInt(localStorage.getItem('level')) || 1, 0, hp);
+        alert('Восстановлено 20 HP');
+    } else if (type === 'speed') {
+        potions.speed--;
+        alert('Ускорение активировано на 1 час');
+    } else if (type === 'gold') {
+        potions.gold--;
+        alert('Золотой бонус активирован');
+    } else if (type === 'amulet') {
+        amulets--;
+        alert('Максимальный HP увеличен на 10');
+    } else if (type === 'scroll') {
+        scrolls--;
+        alert('Защитный свиток активирован');
+    }
+    saveLoot();
+    createInventoryGrid();
+    closeModal('use-item');
+}
+
+document.getElementById('use-yes').addEventListener('click', useItem);
+document.getElementById('use-no').addEventListener('click', () => closeModal('use-item'));
