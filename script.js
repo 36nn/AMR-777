@@ -359,7 +359,7 @@ function createInventoryGrid() {
         {type: 'speed', count: potions.speed, image: 'i-no-bg-preview (carve.photos).png'},
         {type: 'gold', count: potions.gold, image: 'apps_62003_13960015020777823_cee4347e-2b33-4142-83-no-bg-preview (carve.photos).png'},
         {type: 'fragment', count: artifactFragments, image: 'https://example.com/fragment.png'},
-        {type: 'amulet', count: amulets, image: 'https://example.com/amulet.png'},
+        {type: 'amulet', count: amulets, image: 'cb1723a57a4d27dc89a69e2f38205f9c-no-bg-preview (carve.photos).png'},
         {type: 'scroll', count: scrolls, image: '9eb4d11a1e7373524852c6aa01b4058b-no-bg-preview (carve.photos).png'}
     ];
     items.forEach(item => {
