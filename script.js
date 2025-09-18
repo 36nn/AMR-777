@@ -385,6 +385,12 @@ function createInventoryGrid() {
                 tooltip.classList.remove('show');
             });
             itemDiv.addEventListener('click', () => openUseModal(item.type));
+            if (item.count > 1) {
+                const countDiv = document.createElement('div');
+                countDiv.className = 'item-count';
+                countDiv.textContent = item.count;
+                itemDiv.appendChild(countDiv);
+            }
             cell.appendChild(itemDiv);
         }
         grid.appendChild(cell);

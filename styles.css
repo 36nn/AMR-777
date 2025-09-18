@@ -219,6 +219,23 @@ body.dark .inventory-cell {
     cursor: pointer;
 }
 
+.item-count {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: linear-gradient(145deg, #8b4513, #a0522d);
+    color: #fffacd;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #daa520;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
 #companion {
     display: flex;
     justify-content: center;
