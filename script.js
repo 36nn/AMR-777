@@ -57,6 +57,8 @@ let potions = JSON.parse(localStorage.getItem('potions')) || {antidebuff: 0, spe
 let artifactFragments = parseInt(localStorage.getItem('artifactFragments')) || 0;
 let amulets = parseInt(localStorage.getItem('amulets')) || 0;
 let scrolls = parseInt(localStorage.getItem('scrolls')) || 0;
+let xpBoost = parseInt(localStorage.getItem('xpBoost')) || 1;
+let boostTasks = parseInt(localStorage.getItem('boostTasks')) || 0;
 
 function loadData() {
     // Загрузка статов
@@ -72,6 +74,8 @@ function loadData() {
     artifactFragments = parseInt(localStorage.getItem('artifactFragments')) || 0;
     amulets = parseInt(localStorage.getItem('amulets')) || 0;
     scrolls = parseInt(localStorage.getItem('scrolls')) || 0;
+    xpBoost = parseInt(localStorage.getItem('xpBoost')) || 1;
+    boostTasks = parseInt(localStorage.getItem('boostTasks')) || 0;
 
     // Показать сундук если есть
     if (chestType) {
@@ -97,10 +101,26 @@ function updateDisplay(exp, level, hp) {
     document.getElementById('level').textContent = level;
     let required = getRequiredExp(level);
     document.getElementById('exp-display').textContent = Math.floor(exp) + ' / ' + required;
-    document.getElementById('hp').value = hp;
+    renderHearts(hp);
     let percent = (exp / required) * 100;
     document.getElementById('progress-fill').style.width = percent + '%';
     updateBalance();
+}
+
+function renderHearts(hp) {
+    const heartsDiv = document.getElementById('hp-hearts');
+    heartsDiv.innerHTML = '';
+    const maxHearts = 10;
+    for (let i = 0; i < maxHearts; i++) {
+        const heart = document.createElement('span');
+        heart.textContent = '♥';
+        if (i < Math.floor(hp / 10)) {
+            heart.style.color = 'red';
+        } else {
+            heart.style.color = 'gray';
+        }
+        heartsDiv.appendChild(heart);
+    }
 }
 
 function updateBalance() {
@@ -348,8 +368,8 @@ function createInventoryGrid() {
     grid.innerHTML = '';
     const itemDescriptions = {
         antidebuff: 'Зелье антидебафа: Восстанавливает 20 HP и снимает негативные эффекты.',
-        speed: 'Зелье ускорения: Увеличивает скорость выполнения задач на 50% на 1 час.',
-        gold: 'Зелье золота: Увеличивает доход от лута на 100% на следующий сундук.',
+        speed: 'Зелье ускорения: Весь прогресс XP за 10 задач ×2.',
+        gold: 'Зелье золота: Конвертирует 10 XP в 20 монет (разовый обмен).',
         fragment: 'Фрагмент артефакта: Соберите 3, чтобы получить амулет.',
         amulet: 'Амулет: Повышает максимальный HP на 10.',
         scroll: 'Защитный свиток: Блокирует следующий провал задачи.'
@@ -490,13 +510,17 @@ function updateStats(action, extraLevels = 0) {
             level += extraLevels;
             exp = 0;
         } else {
-            exp += 5;
+            exp += 5 * xpBoost;
             exp = Math.floor(exp);
             let required = getRequiredExp(level);
             if (exp >= required) {
                 level += 1;
                 exp = 0;
             }
+        }
+        if (boostTasks > 0) {
+            boostTasks--;
+            if (boostTasks == 0) xpBoost = 1;
         }
     } else if (action === 'failed') {
         hp = Math.max(0, hp - 10);
@@ -525,6 +549,8 @@ function saveLoot() {
     localStorage.setItem('artifactFragments', artifactFragments);
     localStorage.setItem('amulets', amulets);
     localStorage.setItem('scrolls', scrolls);
+    localStorage.setItem('xpBoost', xpBoost);
+    localStorage.setItem('boostTasks', boostTasks);
 }
 
 function addXP(amount) {
@@ -678,10 +704,22 @@ function useItem() {
         alert('Восстановлено 20 HP');
     } else if (type === 'speed') {
         potions.speed--;
-        alert('Ускорение активировано на 1 час');
+        xpBoost = 2;
+        boostTasks = 10;
+        alert('Ускорение активировано: XP ×2 за следующие 10 задач.');
     } else if (type === 'gold') {
-        potions.gold--;
-        alert('Золотой бонус активирован');
+        let currentExp = parseInt(localStorage.getItem('exp')) || 0;
+        if (currentExp >= 10) {
+            potions.gold--;
+            currentExp -= 10;
+            coins += 20;
+            localStorage.setItem('exp', currentExp);
+            localStorage.setItem('coins', coins);
+            updateDisplay(currentExp, parseInt(localStorage.getItem('level')) || 1, parseInt(localStorage.getItem('hp')) || 100);
+            alert('Конвертировано: -10 XP, +20 монет.');
+        } else {
+            alert('Недостаточно XP (нужно 10).');
+        }
     } else if (type === 'amulet') {
         amulets--;
         alert('Максимальный HP увеличен на 10');

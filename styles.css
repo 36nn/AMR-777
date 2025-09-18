@@ -119,6 +119,10 @@ body.dark .stat label {
     transition: background 0.3s, border-color 0.3s, color 0.3s;
 }
 
+#hp-hearts {
+    background: transparent;
+}
+
 body.dark .stat input, body.dark .stat span {
     background: rgba(255, 250, 250, 0.9);
     border-color: #ddd;
@@ -235,6 +239,18 @@ body.dark .inventory-cell {
     text-align: center;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+#hp-hearts {
+    display: flex;
+    gap: -5px;
+}
+
+#hp-hearts span {
+    font-size: 40px;
+    line-height: 1;
+    background: transparent;
+    border: none;
 }
 
 #companion {
