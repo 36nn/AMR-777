@@ -25,7 +25,8 @@ body.dark {
     border-bottom: 2px solid #ddd;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1;
     transition: background 0.3s;
 }
@@ -533,7 +534,9 @@ body.dark .shop-item {
     background: linear-gradient(145deg, #d2b48c, #b8860b);
     border-radius: 10px;
     cursor: pointer;
-    margin: 0 20px;
+    position: absolute;
+    top: 20px;
+    left: 200px;
     font-size: 18px;
     font-weight: bold;
     color: white;
@@ -541,6 +544,7 @@ body.dark .shop-item {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
 }
 
 #bottom-section {
